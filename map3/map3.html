@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 900px;
+            height: 550px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/TotalChangeinBikeTrips_1.js"></script>
+        <script src="data/CrashesCyclistsInjuredorDied_2.js"></script>
+        <script src="data/BicycleRoutes_3.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:15, minZoom:9
+        }).fitBounds([[40.64478487244944,-74.1446656722485],[40.85763053688216,-73.71550757993796]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_BaseMap_0');
+        map.getPane('pane_BaseMap_0').style.zIndex = 400;
+        var layer_BaseMap_0 = L.tileLayer('http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            pane: 'pane_BaseMap_0',
+            opacity: 1.0,
+            attribution: '<a href="https://cartodb.com/basemaps/">Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</a>',
+            minZoom: 9,
+            maxZoom: 15,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_BaseMap_0;
+        map.addLayer(layer_BaseMap_0);
+        function pop_TotalChangeinBikeTrips_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">GeoID</th>\
+                        <td>' + (feature.properties['GeoID'] !== null ? autolinker.link(feature.properties['GeoID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bike Trips Total Change</th>\
+                        <td>' + (feature.properties['Bike Trips Total Change'] !== null ? autolinker.link(feature.properties['Bike Trips Total Change'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Bike Trips Percent Change</th>\
+                        <td>' + (feature.properties['Bike Trips Percent Change'] !== null ? autolinker.link(feature.properties['Bike Trips Percent Change'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TotalChangeinBikeTrips_1_0(feature) {
+            if (feature.properties['Bike Trips Total Change'] >= -6571.090000 && feature.properties['Bike Trips Total Change'] <= -5000.000000 ) {
+                return {
+                pane: 'pane_TotalChangeinBikeTrips_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(167,0,27,0.75)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Bike Trips Total Change'] >= -5000.000000 && feature.properties['Bike Trips Total Change'] <= -2500.000000 ) {
+                return {
+                pane: 'pane_TotalChangeinBikeTrips_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(203,76,75,0.75)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Bike Trips Total Change'] >= -2500.000000 && feature.properties['Bike Trips Total Change'] <= -1000.000000 ) {
+                return {
+                pane: 'pane_TotalChangeinBikeTrips_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(239,153,123,0.75)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Bike Trips Total Change'] >= -1000.000000 && feature.properties['Bike Trips Total Change'] <= -500.000000 ) {
+                return {
+                pane: 'pane_TotalChangeinBikeTrips_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(246,203,184,0.75)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Bike Trips Total Change'] >= -500.000000 && feature.properties['Bike Trips Total Change'] <= 500.000000 ) {
+                return {
+                pane: 'pane_TotalChangeinBikeTrips_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,247,247,0.75)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Bike Trips Total Change'] >= 500.000000 && feature.properties['Bike Trips Total Change'] <= 1000.000000 ) {
+                return {
+                pane: 'pane_TotalChangeinBikeTrips_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(193,220,234,0.75)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Bike Trips Total Change'] >= 1000.000000 && feature.properties['Bike Trips Total Change'] <= 2500.000000 ) {
+                return {
+                pane: 'pane_TotalChangeinBikeTrips_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(136,189,216,0.75)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Bike Trips Total Change'] >= 2500.000000 && feature.properties['Bike Trips Total Change'] <= 5000.000000 ) {
+                return {
+                pane: 'pane_TotalChangeinBikeTrips_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(70,135,171,0.75)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Bike Trips Total Change'] >= 5000.000000 && feature.properties['Bike Trips Total Change'] <= 31723.030000 ) {
+                return {
+                pane: 'pane_TotalChangeinBikeTrips_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(3,82,127,0.75)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_TotalChangeinBikeTrips_1');
+        map.getPane('pane_TotalChangeinBikeTrips_1').style.zIndex = 401;
+        map.getPane('pane_TotalChangeinBikeTrips_1').style['mix-blend-mode'] = 'multiply';
+        var layer_TotalChangeinBikeTrips_1 = new L.geoJson(json_TotalChangeinBikeTrips_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TotalChangeinBikeTrips_1',
+            layerName: 'layer_TotalChangeinBikeTrips_1',
+            pane: 'pane_TotalChangeinBikeTrips_1',
+            onEachFeature: pop_TotalChangeinBikeTrips_1,
+            style: style_TotalChangeinBikeTrips_1_0,
+        });
+        bounds_group.addLayer(layer_TotalChangeinBikeTrips_1);
+        map.addLayer(layer_TotalChangeinBikeTrips_1);
+        function pop_CrashesCyclistsInjuredorDied_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Cyclists Injured</th>\
+                        <td>' + (feature.properties['Cyclists Injured'] !== null ? autolinker.link(feature.properties['Cyclists Injured'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cyclists Killed</th>\
+                        <td>' + (feature.properties['Cyclists Killed'] !== null ? autolinker.link(feature.properties['Cyclists Killed'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Crash Date</th>\
+                        <td>' + (feature.properties['Crash Date'] !== null ? autolinker.link(feature.properties['Crash Date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CrashesCyclistsInjuredorDied_2_0(feature) {
+            switch(String(feature.properties['Cyclists Killed'])) {
+                case '0':
+                    return {
+                pane: 'pane_CrashesCyclistsInjuredorDied_2',
+                radius: 1.6,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,43,43,0.9)',
+                interactive: true,
+            }
+                    break;
+                case '1':
+                    return {
+                pane: 'pane_CrashesCyclistsInjuredorDied_2',
+                radius: 4.4,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,43,43,0.9)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_CrashesCyclistsInjuredorDied_2');
+        map.getPane('pane_CrashesCyclistsInjuredorDied_2').style.zIndex = 402;
+        map.getPane('pane_CrashesCyclistsInjuredorDied_2').style['mix-blend-mode'] = 'normal';
+        var layer_CrashesCyclistsInjuredorDied_2 = new L.geoJson(json_CrashesCyclistsInjuredorDied_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CrashesCyclistsInjuredorDied_2',
+            layerName: 'layer_CrashesCyclistsInjuredorDied_2',
+            pane: 'pane_CrashesCyclistsInjuredorDied_2',
+            onEachFeature: pop_CrashesCyclistsInjuredorDied_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_CrashesCyclistsInjuredorDied_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CrashesCyclistsInjuredorDied_2);
+        map.addLayer(layer_CrashesCyclistsInjuredorDied_2);
+        function pop_BicycleRoutes_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Facility Class</th>\
+                        <td>' + (feature.properties['Facility Class'] !== null ? autolinker.link(feature.properties['Facility Class'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Facility</th>\
+                        <td>' + (feature.properties['Facility'] !== null ? autolinker.link(feature.properties['Facility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BicycleRoutes_3_0(feature) {
+            switch(String(feature.properties['Facility Class'])) {
+                case 'I':
+                    return {
+                pane: 'pane_BicycleRoutes_3',
+                opacity: 1,
+                color: 'rgba(91,91,91,0.8)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'II':
+                    return {
+                pane: 'pane_BicycleRoutes_3',
+                opacity: 1,
+                color: 'rgba(138,138,138,0.8)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'III':
+                    return {
+                pane: 'pane_BicycleRoutes_3',
+                opacity: 1,
+                color: 'rgba(153,153,153,0.8)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'L':
+                    return {
+                pane: 'pane_BicycleRoutes_3',
+                opacity: 1,
+                color: 'rgba(153,153,153,0.8)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_BicycleRoutes_3');
+        map.getPane('pane_BicycleRoutes_3').style.zIndex = 403;
+        map.getPane('pane_BicycleRoutes_3').style['mix-blend-mode'] = 'normal';
+        var layer_BicycleRoutes_3 = new L.geoJson(json_BicycleRoutes_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BicycleRoutes_3',
+            layerName: 'layer_BicycleRoutes_3',
+            pane: 'pane_BicycleRoutes_3',
+            onEachFeature: pop_BicycleRoutes_3,
+            style: style_BicycleRoutes_3_0,
+        });
+        bounds_group.addLayer(layer_BicycleRoutes_3);
+        map.addLayer(layer_BicycleRoutes_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Bicycle Routes<br /><table><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_3_FacilityClassI0.png" /></td><td>Facility Class I</td></tr><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_3_FacilityClassII1.png" /></td><td>Facility Class II</td></tr><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_3_FacılıtyClassIII2.png" /></td><td>Facılıty Class III</td></tr><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_3_LLinks3.png" /></td><td>L: Links</td></tr></table>': layer_BicycleRoutes_3,'Crashes - Cyclists Injured or Died<br /><table><tr><td style="text-align: center;"><img src="legend/CrashesCyclistsInjuredorDied_2_CyclistsInjured0.png" /></td><td>Cyclists Injured</td></tr><tr><td style="text-align: center;"><img src="legend/CrashesCyclistsInjuredorDied_2_CyclistsKilled1.png" /></td><td>Cyclists Killed</td></tr></table>': layer_CrashesCyclistsInjuredorDied_2,'Total Change in Bike Trips<br /><table><tr><td style="text-align: center;"><img src="legend/TotalChangeinBikeTrips_1_50000.png" /></td><td><-5000</td></tr><tr><td style="text-align: center;"><img src="legend/TotalChangeinBikeTrips_1_500025001.png" /></td><td>-5000 - -2500</td></tr><tr><td style="text-align: center;"><img src="legend/TotalChangeinBikeTrips_1_250010002.png" /></td><td>-2500 - -1000</td></tr><tr><td style="text-align: center;"><img src="legend/TotalChangeinBikeTrips_1_10005003.png" /></td><td>-1000 - -500</td></tr><tr><td style="text-align: center;"><img src="legend/TotalChangeinBikeTrips_1_5005004.png" /></td><td>-500 - 500</td></tr><tr><td style="text-align: center;"><img src="legend/TotalChangeinBikeTrips_1_50010005.png" /></td><td>500 - 1000</td></tr><tr><td style="text-align: center;"><img src="legend/TotalChangeinBikeTrips_1_100025006.png" /></td><td>1000 - 2500</td></tr><tr><td style="text-align: center;"><img src="legend/TotalChangeinBikeTrips_1_250050007.png" /></td><td>2500 - 5000</td></tr><tr><td style="text-align: center;"><img src="legend/TotalChangeinBikeTrips_1_50008.png" /></td><td>> 5000</td></tr></table>': layer_TotalChangeinBikeTrips_1,"Base Map": layer_BaseMap_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
