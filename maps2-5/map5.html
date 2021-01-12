@@ -9,9 +9,11 @@
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
-        #map {
-            width: 900px;
-            height: 550px;
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
         }
         </style>
         <title></title>
@@ -300,7 +302,7 @@
         bounds_group.addLayer(layer_SuggestedRoutes_3);
         map.addLayer(layer_SuggestedRoutes_3);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Suggested Routes<br /><table><tr><td style="text-align: center;"><img src="legend/SuggestedRoutes_3_00.png" /></td><td>0</td></tr><tr><td style="text-align: center;"><img src="legend/SuggestedRoutes_3_221.png" /></td><td>22</td></tr></table>': layer_SuggestedRoutes_3,'Bicycle Routes<br /><table><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_2_FacilityClassI0.png" /></td><td>Facility Class I</td></tr><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_2_FacilityClassII1.png" /></td><td>Facility Class II</td></tr><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_2_FacılıtyClassIII2.png" /></td><td>Facılıty Class III</td></tr><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_2_LLinks3.png" /></td><td>L: Links</td></tr></table>': layer_BicycleRoutes_2,'Crashes - Cyclists Injured or Died<br /><table><tr><td style="text-align: center;"><img src="legend/CrashesCyclistsInjuredorDied_1_CyclistsInjured0.png" /></td><td>Cyclists Injured</td></tr><tr><td style="text-align: center;"><img src="legend/CrashesCyclistsInjuredorDied_1_CyclistsKilled1.png" /></td><td>Cyclists Killed</td></tr></table>': layer_CrashesCyclistsInjuredorDied_1,"Base Map": layer_BaseMap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Suggested Routes<br /><table><tr><td style="text-align: center;"><img src="legend/SuggestedRoutes_3_221.png" /></td><td>Suggested Route</td></tr></table>': layer_SuggestedRoutes_3,'Bicycle Routes<br /><table><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_2_FacilityClassI0.png" /></td><td>Facility Class I</td></tr><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_2_FacilityClassII1.png" /></td><td>Facility Class II</td></tr><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_2_FacılıtyClassIII2.png" /></td><td>Facılıty Class III</td></tr><tr><td style="text-align: center;"><img src="legend/BicycleRoutes_2_LLinks3.png" /></td><td>L: Links</td></tr></table>': layer_BicycleRoutes_2,'Crashes - Cyclists Injured or Died<br /><table><tr><td style="text-align: center;"><img src="legend/CrashesCyclistsInjuredorDied_1_CyclistsInjured0.png" /></td><td>Cyclists Injured</td></tr><tr><td style="text-align: center;"><img src="legend/CrashesCyclistsInjuredorDied_1_CyclistsKilled1.png" /></td><td>Cyclists Killed</td></tr></table>': layer_CrashesCyclistsInjuredorDied_1,"Base Map": layer_BaseMap_0,},{collapsed:false}).addTo(map);
         setBounds();
         var i = 0;
         layer_SuggestedRoutes_3.eachLayer(function(layer) {
